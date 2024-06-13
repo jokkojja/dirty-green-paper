@@ -1,11 +1,11 @@
 use chrono::NaiveDateTime;
 
-enum Currency {
+pub enum Currency {
     Rub,
     Usd,
 }
 
-enum IncomeCategory {
+pub enum IncomeCategory {
     Salary,
     Bonuses,
     Investments,
@@ -15,7 +15,7 @@ enum IncomeCategory {
     Other,
 }
 
-enum ExpenseCategory {
+pub enum ExpenseCategory {
     GroceriesAndFood,
     Housing,
     Utilities,
@@ -33,7 +33,7 @@ enum ExpenseCategory {
     Other,
 }
 
-struct Expense {
+pub struct Expense {
     amount: f32,
     currency: Currency,
     category: ExpenseCategory,

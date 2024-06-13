@@ -5,7 +5,6 @@ use tokio::main;
 use dotenv::dotenv;
 
 mod api;
-
 use api::rest::Api;
 
 #[main]

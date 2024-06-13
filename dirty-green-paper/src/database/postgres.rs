@@ -3,18 +3,20 @@ use std::env;
 use tokio::spawn;
 use tokio_postgres::{Client, NoTls};
 
-use models::money;
+use crate::models::money;
 
-struct DataBase {
+pub struct Database {
     client: Client,
 }
 
-impl DataBase {
+impl Database {
     async fn from_env() -> Self {
         dotenv().ok();
         let database_host = env::var("DATABASE_HOST").unwrap();
 
-        let (client, connection) = tokio_postgres::connect(&database_host, NoTls).await?;
+        let (client, connection) = tokio_postgres::connect(&database_host, NoTls)
+            .await
+            .unwrap();
 
         spawn(async move {
             if let Err(e) = connection.await {
@@ -25,8 +27,8 @@ impl DataBase {
         return Self { client };
     }
 
-    async fn add_income(income: Income) {}
-    async fn add_extense(income: Extens) {}
+    async fn add_income(income: money::Income) {}
+    async fn add_extense(income: money::Expense) {}
     async fn remove_extense() {}
     async fn remove_income() {}
 }
