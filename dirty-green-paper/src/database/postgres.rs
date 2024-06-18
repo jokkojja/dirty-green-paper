@@ -1,9 +1,8 @@
+use crate::models::money;
 use dotenv::dotenv;
 use std::env;
 use tokio::spawn;
-use tokio_postgres::{Client, NoTls};
-
-use crate::models::money;
+use tokio_postgres::{Client, Error, NoTls};
 
 pub struct Database {
     client: Client,
@@ -27,8 +26,36 @@ impl Database {
         return Self { client };
     }
 
-    async fn add_income(income: money::Income) {}
-    async fn add_extense(income: money::Expense) {}
+    pub async fn add_income(&self, income: money::Income) -> Result<(), Error> {
+        self.client
+            .execute(
+                "INSERT INTO incomes (amount, currency, category, description, date) VALUES ($1, $2, $3, $4, $5)",
+                &[
+                    &income.amount,
+                    &income.currency.as_str(),
+                    &income.category.as_str(),
+                    &income.description.as_str(),
+                    &income.date,
+                ],
+            )
+            .await?;
+        Ok(())
+    }
+    pub async fn add_expense(&self, income: money::Expense) -> Result<(), Error> {
+        self.client
+            .execute(
+                "INSERT INTO expense (amount, currency, category, description, date) VALUES ($1, $2, $3, $4, $5)",
+                &[
+                    &income.amount,
+                    &income.currency.as_str(),
+                    &income.category.as_str(),
+                    &income.description.as_str(),
+                    &income.date,
+                ],
+            )
+            .await?;
+        Ok(())
+    }
     async fn remove_extense() {}
     async fn remove_income() {}
 }

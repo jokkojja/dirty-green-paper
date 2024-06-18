@@ -5,6 +5,15 @@ pub enum Currency {
     Usd,
 }
 
+impl Currency {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Currency::Rub => "Rub",
+            Currency::Usd => "Usd",
+        }
+    }
+}
+
 pub enum IncomeCategory {
     Salary,
     Bonuses,
@@ -13,6 +22,20 @@ pub enum IncomeCategory {
     Gifts,
     SaleOfAssets,
     Other,
+}
+
+impl IncomeCategory {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            IncomeCategory::Salary => "Salary",
+            IncomeCategory::Bonuses => "Bonuses",
+            IncomeCategory::Investments => "Investments",
+            IncomeCategory::PassiveIncome => "PassiveIncome",
+            IncomeCategory::Gifts => "Gifts",
+            IncomeCategory::SaleOfAssets => "SaleOfAssets",
+            IncomeCategory::Other => "Other",
+        }
+    }
 }
 
 pub enum ExpenseCategory {
@@ -33,18 +56,40 @@ pub enum ExpenseCategory {
     Other,
 }
 
+impl ExpenseCategory {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ExpenseCategory::GroceriesAndFood => "GroceriesAndFood",
+            ExpenseCategory::Housing => "Housing",
+            ExpenseCategory::Utilities => "Utilities",
+            ExpenseCategory::Transportation => "Transportation",
+            ExpenseCategory::HealthAndMedical => "HealthAndMedical",
+            ExpenseCategory::ClothingAndFootwear => "ClothingAndFootwear",
+            ExpenseCategory::EntertainmentAndLeisure => "EntertainmentAndLeisure",
+            ExpenseCategory::Education => "Education",
+            ExpenseCategory::PersonalExpenses => "PersonalExpenses",
+            ExpenseCategory::Travel => "Travel",
+            ExpenseCategory::GiftsAndDonations => "GiftsAndDonations",
+            ExpenseCategory::Pets => "Pets",
+            ExpenseCategory::DebtsAndLoans => "DebtsAndLoans",
+            ExpenseCategory::ElectronicsAndGadgets => "ElectronicsAndGadgets",
+            ExpenseCategory::Other => "Other",
+        }
+    }
+}
+
 pub struct Expense {
-    amount: f32,
-    currency: Currency,
-    category: ExpenseCategory,
-    description: String,
-    date: NaiveDateTime,
+    pub amount: f32,
+    pub currency: Currency,
+    pub category: ExpenseCategory,
+    pub description: String,
+    pub date: NaiveDateTime,
 }
 
 pub struct Income {
-    amount: f32,
-    currency: Currency,
-    category: IncomeCategory,
-    description: String,
-    date: NaiveDateTime,
+    pub amount: f32,
+    pub currency: Currency,
+    pub category: IncomeCategory,
+    pub description: String,
+    pub date: NaiveDateTime,
 }
