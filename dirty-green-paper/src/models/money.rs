@@ -1,5 +1,6 @@
 use chrono::NaiveDateTime;
 
+// TODO: Looks like fucking shit, need research and think is it ok way
 pub enum Currency {
     Rub,
     Usd,

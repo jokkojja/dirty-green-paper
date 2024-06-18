@@ -9,7 +9,7 @@ pub struct Database {
 }
 
 impl Database {
-    async fn from_env() -> Self {
+    pub async fn from_env() -> Self {
         dotenv().ok();
         let database_host = env::var("DATABASE_HOST").unwrap();
 

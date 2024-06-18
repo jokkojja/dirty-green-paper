@@ -2,6 +2,10 @@ use axum::{routing::get, Router};
 use std::env;
 use tokio::net::TcpListener;
 
+use crate::database;
+
+use database::postgres::Database;
+
 struct ApiConfig {
     host: String,
     port: String,
