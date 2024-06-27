@@ -2,20 +2,30 @@ use crate::models::money;
 use dotenv::dotenv;
 use std::env;
 use tokio::spawn;
-use tokio_postgres::{Client, Error, NoTls};
+use tokio_postgres::{Client, Config, Error, NoTls};
 
 pub struct Database {
     client: Client,
 }
 
+fn prepare_config() -> Config {
+    let mut new_config = Config::new();
+
+    new_config.user("test");
+    new_config.dbname("test");
+    new_config.password("test");
+    new_config.port(5432);
+    new_config.host("postgres");
+
+    new_config
+}
+
 impl Database {
     pub async fn from_env() -> Self {
         dotenv().ok();
-        let database_host = env::var("DATABASE_HOST").unwrap();
+        let database_config = prepare_config();
 
-        let (client, connection) = tokio_postgres::connect(&database_host, NoTls)
-            .await
-            .unwrap();
+        let (client, connection) = database_config.connect(NoTls).await.unwrap();
 
         spawn(async move {
             if let Err(e) = connection.await {

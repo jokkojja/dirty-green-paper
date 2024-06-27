@@ -1,4 +1,4 @@
-.PHONY: run, stop
+.PHONY: run stop
 run:
 	docker-compose up --build
 
